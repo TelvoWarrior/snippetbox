@@ -9,7 +9,7 @@ import (
 
 type application struct {
 	errorLog *log.Logger
-	infoLog *log.Logger
+	infoLog  *log.Logger
 }
 
 func main() {
@@ -21,22 +21,13 @@ func main() {
 
 	app := &application{
 		errorLog: errorLog,
-		infoLog: infoLog,
+		infoLog:  infoLog,
 	}
 
-	mux := http.NewServeMux()
-
-	fileServer := http.FileServer(http.Dir("./ui/static/"))
-	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
-
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/snippet/view", app.snippetView)
-	mux.HandleFunc("/snippet/create", app.snippetCreate)
-
-	srv := &http.Server {
-		Addr: *addr,
+	srv := &http.Server{
+		Addr:     *addr,
 		ErrorLog: errorLog,
-		Handler: mux,
+		Handler:  mux,
 	}
 
 	infoLog.Printf("Starting server on %s", *addr)
