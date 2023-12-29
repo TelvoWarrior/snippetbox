@@ -14,6 +14,11 @@ func snippetView(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Display a specific snippet..."))
 }
 
+// Add a snippetCreate handler function.
+func snippetCreate(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Create a new snippet..."))
+}
+
 func main() {
 
 	mux := http.NewServeMux()
